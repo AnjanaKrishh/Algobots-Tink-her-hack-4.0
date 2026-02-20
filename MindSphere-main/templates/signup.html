@@ -1,159 +1,110 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
 <style>
-
-/* ---------- FONT ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-body{
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-}
-
-/* ---------- BACKGROUND ---------- */
+/* ---------- PAGE CENTER ---------- */
 .signup-wrapper {
-    min-height: 90vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #052e16, #065f46, #10b981);
-    padding: 20px;
 }
 
-/* ---------- GLASS CARD ---------- */
+/* ---------- CARD ---------- */
 .signup-card {
     width: 100%;
     max-width: 440px;
+    background: white;
     padding: 42px 38px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
-    color: white;
-    animation: fadeUp 0.7s ease;
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+    animation: fadeUp 0.8s ease;
 }
 
 @keyframes fadeUp {
-    from {opacity:0; transform: translateY(25px);}
-    to {opacity:1; transform: translateY(0);}
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ---------- TITLE ---------- */
 .signup-card h2 {
     text-align: center;
     margin-bottom: 8px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .signup-card p {
     text-align: center;
     font-size: 14px;
-    opacity: 0.85;
+    color: #666;
     margin-bottom: 28px;
 }
 
 /* ---------- FORM ---------- */
 .form-group {
-    margin-bottom: 18px;
-    position: relative;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
     font-size: 13px;
+    font-weight: 600;
     margin-bottom: 6px;
 }
 
 .form-group input {
     width: 100%;
-    padding: 14px;
+    padding: 12px 14px;
     border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: transparent;
-    color: white;
+    border: 1px solid #ccc;
     font-size: 14px;
+    transition: all 0.2s ease;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: #6ee7b7;
-    box-shadow: 0 0 0 3px rgba(110,231,183,0.25);
-}
-
-/* ---------- PASSWORD TOGGLE ---------- */
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 42px;
-    cursor: pointer;
-    font-size: 13px;
-    opacity: 0.8;
-}
-
-/* ---------- PASSWORD STRENGTH ---------- */
-.strength {
-    height: 6px;
-    border-radius: 10px;
-    margin-top: 6px;
-    background: rgba(255,255,255,0.2);
-    overflow: hidden;
-}
-
-.strength-bar {
-    height: 100%;
-    width: 0%;
-    transition: 0.3s;
-}
-
-/* ---------- TERMS ---------- */
-.terms {
-    font-size: 13px;
-    margin-top: 5px;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.terms a {
-    color: #bbf7d0;
-    text-decoration: none;
-}
-
-.terms a:hover {
-    text-decoration: underline;
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25,135,84,0.15);
 }
 
 /* ---------- BUTTON ---------- */
 .signup-btn {
     width: 100%;
-    padding: 14px;
+    padding: 13px;
     border-radius: 12px;
     border: none;
-    margin-top: 15px;
-    background: white;
-    color: #065f46;
+    background: linear-gradient(135deg, #198754, #22c55e);
+    color: white;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 12px;
 }
 
 .signup-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(255,255,255,0.35);
+    box-shadow: 0 10px 25px rgba(25,135,84,0.35);
 }
 
 /* ---------- EXTRA ---------- */
 .extra {
-    margin-top: 20px;
+    margin-top: 18px;
     text-align: center;
     font-size: 14px;
 }
 
 .extra a {
-    color: #bbf7d0;
+    color: #198754;
     text-decoration: none;
+    font-weight: 600;
 }
 
 .extra a:hover {
@@ -162,20 +113,12 @@ body{
 
 /* ---------- ERROR ---------- */
 .errorlist {
-    background: rgba(255,99,99,0.2);
-    border: 1px solid rgba(255,99,99,0.4);
-    padding: 10px;
-    border-radius: 8px;
+    color: #dc3545;
     font-size: 13px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     list-style: none;
+    padding-left: 0;
 }
-
-/* ---------- MOBILE ---------- */
-@media(max-width:480px){
-    .signup-card{padding:30px 24px;}
-}
-
 </style>
 
 <div class="signup-wrapper">
@@ -190,33 +133,15 @@ body{
 
             {% for field in form %}
                 <div class="form-group">
-
                     {{ field.label_tag }}
-
-                    {% if field.name == 'password1' or field.name == 'password' %}
-                        {{ field }}
-                        <span class="password-toggle" onclick="togglePassword()">Show</span>
-
-                        <div class="strength">
-                            <div class="strength-bar" id="strengthBar"></div>
-                        </div>
-                    {% else %}
-                        {{ field }}
-                    {% endif %}
-
+                    {{ field }}
                     {{ field.errors }}
                 </div>
             {% endfor %}
 
-            <label class="terms">
-                <input type="checkbox" required>
-                I agree to the <a href="#">Terms & Conditions</a>
-            </label>
-
             <button type="submit" class="signup-btn">
                 Create Account
             </button>
-
         </form>
 
         <div class="extra">
@@ -227,42 +152,5 @@ body{
     </div>
 
 </div>
-
-<script>
-
-/* PASSWORD SHOW HIDE */
-function togglePassword() {
-    const password = document.querySelector('input[type="password"], input[name="password1"]');
-    const toggle = document.querySelector('.password-toggle');
-
-    if(password.type === "password"){
-        password.type="text";
-        toggle.innerText="Hide";
-    }else{
-        password.type="password";
-        toggle.innerText="Show";
-    }
-}
-
-/* PASSWORD STRENGTH */
-const passInput = document.querySelector('input[name="password1"], input[type="password"]');
-const bar = document.getElementById('strengthBar');
-
-if(passInput){
-passInput.addEventListener("input",()=>{
-    let val = passInput.value.length;
-    let width = 0;
-    let color = "red";
-
-    if(val>5){width=40;color="orange";}
-    if(val>8){width=70;color="yellow";}
-    if(val>12){width=100;color="limegreen";}
-
-    bar.style.width = width+"%";
-    bar.style.background = color;
-});
-}
-
-</script>
 
 {% endblock %}
