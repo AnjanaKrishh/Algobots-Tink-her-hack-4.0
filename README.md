@@ -9,17 +9,17 @@
 ### Team Name: FEELIX
 
 ### Team Members
-- Member 1: [Anjanakrishna Ps ] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
+- Member 1: [Anjanakrishn Ps ] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
 - Member 2: [Anaswara narayanan] - [ICCS COLLEGE OF ENGINEERING AND MANAGEMENT]
 
 ### Hosted Project Link
 [mention your project hosted link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+[Feelix,full stack web application that provides daily mental health check-ins and also foccuses on mental awarness and stress reduction]
 
 ### The Problem statement
-[Many people experience stress ,anxiety and mental fatigue.The existing solutions are either costly or needs the peple intervention.There is no easy accesible platforms for mental illness.No integrated systems having including of games,tracking and ai-support?]
+[Many people experience stress ,anxiety and mental fatigue.The existing solutions are either costly or needs the peple intervention.There is no easy accesible platforms for mental illness.No integrated systems having including of games,tracking and ai-support]
 
 ### The Solution
 [How are you solving it?]
@@ -31,10 +31,9 @@
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+- Languages used: [ JavaScript, Python, Java]
+- Frameworks used: [ Django]
+- Tools used: [VS Code, git]
 
 **For Hardware:**
 - Main components: [List main components]
