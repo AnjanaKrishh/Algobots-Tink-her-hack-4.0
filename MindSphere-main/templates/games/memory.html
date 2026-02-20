@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>🧠 Memory Focus Game</h2>
+<p>Match all pairs to improve focus and concentration.</p>
+
+<!-- Controls -->
+<div class="controls">
+    <label>Difficulty:</label>
+    <select id="difficulty" onchange="startGame()">
+        <option value="easy">Easy (4x2)</option>
+        <option value="medium">Medium (4x3)</option>
+        <option value="hard">Hard (4x4)</option>
+    </select>
+
+    <span>⏱ Time: <strong id="timer">0</strong>s</span>
+    <span>🔢 Moves: <strong id="moves">0</strong></span>
+</div>
+
+<div class="game-board" id="gameBoard"></div>
+
+<p id="status"></p>
+
+<a href="{% url 'games_home' %}">⬅ Back to Mind Games</a>
+
+<style>
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.game-board {
+    display: grid;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px auto;
+}
+
+.card {
+    width: 80px;
+    height: 80px;
+    background: #0d6efd;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.card.flipped {
+    background: #f8f9fa;
+    color: #000;
+    cursor: default;
+}
+
+.card.matched {
+    background: #6cc4a1;
+    color: white;
+}
+</style>
+
+<script>
+const symbols = ["🍎","🍌","🍇","🍓","🍉","🍒","🍍","🥝","🍑","🥑","🍋","🍊"];
+let cards = [];
+let firstCard = null;
+let secondCard = null;
+let lockBoard = false;
+let matchedPairs = 0;
+let moves = 0;
+let timer = 0;
+let timerInterval;
+
+const board = document.getElementById("gameBoard");
+const timerEl = document.getElementById("timer");
+const movesEl = document.getElementById("moves");
+const statusEl = document.getElementById("status");
+
+function startGame() {
+    // Reset
+    clearInterval(timerInterval);
+    board.innerHTML = "";
+    firstCard = secondCard = null;
+    lockBoard = false;
+    matchedPairs = 0;
+    moves = 0;
+    timer = 0;
+    timerEl.innerText = timer;
+    movesEl.innerText = moves;
+    statusEl.innerText = "";
+
+    // Difficulty
+    const level = document.getElementById("difficulty").value;
+    let pairCount = level === "easy" ? 4 : level === "medium" ? 6 : 8;
+
+    cards = symbols.slice(0, pairCount);
+    cards = [...cards, ...cards];
+    cards.sort(() => 0.5 - Math.random());
+
+    board.style.gridTemplateColumns = `repeat(4, 80px)`;
+
+    cards.forEach(symbol => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.symbol = symbol;
+        card.innerText = "?";
+        card.addEventListener("click", () => flipCard(card));
+        board.appendChild(card);
+    });
+
+    // Start timer
+    timerInterval = setInterval(() => {
+        timer++;
+        timerEl.innerText = timer;
+    }, 1000);
+}
+
+function flipCard(card) {
+    if (lockBoard || card.classList.contains("flipped")) return;
+
+    card.classList.add("flipped");
+    card.innerText = card.dataset.symbol;
+
+    if (!firstCard) {
+        firstCard = card;
+    } else {
+        secondCard = card;
+        lockBoard = true;
+        moves++;
+        movesEl.innerText = moves;
+        checkMatch();
+    }
+}
+
+function checkMatch() {
+    if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+        firstCard.classList.add("matched");
+        secondCard.classList.add("matched");
+        matchedPairs++;
+
+        resetTurn();
+
+        if (matchedPairs === cards.length / 2) {
+            clearInterval(timerInterval);
+            statusEl.innerText =
+                `🎉 Well done! Completed in ${timer}s with ${moves} moves.`;
+        }
+    } else {
+        setTimeout(() => {
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            firstCard.innerText = "?";
+            secondCard.innerText = "?";
+            resetTurn();
+        }, 800);
+    }
+}
+
+function resetTurn() {
+    [firstCard, secondCard] = [null, null];
+    lockBoard = false;
+}
+
+// Start default game
+startGame();
+</script>
+{% endblock %}

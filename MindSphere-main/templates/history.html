@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+/* ================= PAGE ================= */
+.history-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px 40px;
+    animation: fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= HEADER ================= */
+.history-header {
+    margin-bottom: 30px;
+}
+
+.history-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.history-header p {
+    font-size: 15px;
+    color: #555;
+}
+
+/* ================= SUMMARY ================= */
+.summary-card {
+    padding: 22px;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border-left: 6px solid {{ color }};
+    margin-bottom: 30px;
+}
+
+.summary-card h3 {
+    margin-bottom: 6px;
+}
+
+.summary-card p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* ================= TREND ================= */
+.trend-section {
+    margin-bottom: 35px;
+}
+
+.trend-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+    height: 220px;
+    margin-top: 20px;
+}
+
+.trend-bar {
+    width: 42px;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.bar-5 { height: 180px; background: #e74c3c; }
+.bar-4 { height: 150px; background: #e67e22; }
+.bar-3 { height: 120px; background: #f1c40f; color:#333; }
+.bar-2 { height: 90px;  background: #2ecc71; }
+.bar-1 { height: 60px;  background: #3498db; }
+
+/* ================= TABLE ================= */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.history-table th {
+    background: #f4f6fb;
+    padding: 14px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.history-table td {
+    padding: 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.history-table tr:hover {
+    background: #f9fbff;
+}
+
+/* ================= TAGS ================= */
+.tag {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.tag-high { background:#fdecea; color:#dc3545; }
+.tag-mid  { background:#fff4e5; color:#f39c12; }
+.tag-low  { background:#eafaf1; color:#27ae60; }
+
+/* ================= BACK ================= */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #0d6efd;
+}
+</style>
+
+<div class="history-wrapper">
+
+    <!-- HEADER -->
+    <div class="history-header">
+        <h2>📊 Mental Wellness History & Insights</h2>
+        <p>Understand your mental patterns over time</p>
+    </div>
+
+    <!-- SUMMARY -->
+    {% if avg_stress %}
+    <div class="summary-card">
+        <h3>
+            Overall Status:
+            <span style="color:{{ color }};">{{ status }}</span>
+        </h3>
+        <p>Average Stress Level: {{ avg_stress }}/5</p>
+    </div>
+    {% else %}
+        <p>No data available yet.</p>
+    {% endif %}
+
+    <!-- TREND -->
+    <div class="trend-section">
+        <h3>📈 Stress Trend</h3>
+
+        <div class="trend-bars">
+            {% for day in history %}
+                <div class="trend-bar bar-{{ day.stress }}">
+                    {{ day.stress }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <p style="font-size:12px; margin-top:10px;">
+            Each bar represents stress level for that day
+        </p>
+    </div>
+
+    <!-- TABLE -->
+    <h3>📅 Daily Mental Health & Activity History</h3>
+
+    <table class="history-table">
+        <tr>
+            <th>Date</th>
+            <th>Mood</th>
+            <th>Stress</th>
+            <th>Energy</th>
+            <th>Sleep</th>
+            <th>Games Played</th>
+            <th>Insight</th>
+        </tr>
+
+        {% for day in history %}
+        <tr>
+            <td>{{ day.date }}</td>
+            <td>{{ day.mood }}</td>
+            <td>{{ day.stress }}/5</td>
+            <td>{{ day.energy }}</td>
+            <td>{{ day.sleep }}</td>
+
+            <td>
+                {% if day.games %}
+                    <ul style="margin:0; padding-left:18px;">
+                        {% for game in day.games %}
+                            <li>
+                                {{ game.get_game_type_display }}
+                                {% if game.score %}
+                                    (Score: {{ game.score }})
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <span style="color:gray;">No games</span>
+                {% endif %}
+            </td>
+
+            <td>
+                {% if day.stress >= 4 %}
+                    <span class="tag tag-high">High Stress ⚠</span>
+                {% elif day.stress >= 3 %}
+                    <span class="tag tag-mid">Moderate ⚖</span>
+                {% else %}
+                    <span class="tag tag-low">Balanced 😊</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="{% url 'dashboard' %}" class="back-link">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

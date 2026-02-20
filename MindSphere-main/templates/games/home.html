@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+/* ================= CALM BACKGROUND ================= */
+body {
+    background: linear-gradient(135deg, #edf6ff, #f2fbf7);
+}
+
+/* ================= CONTAINER ================= */
+.games-wrapper {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 12px 45px;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= HEADER ================= */
+.games-header {
+    margin-bottom: 30px;
+}
+
+.games-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.games-header p {
+    color: #555;
+    font-size: 15px;
+}
+
+/* ================= GRID ================= */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+}
+
+/* ================= CARD ================= */
+.game-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 20px;
+    padding: 26px 24px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 42px rgba(0,0,0,0.10);
+}
+
+.game-card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.game-card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ================= BUTTON ================= */
+.game-btn {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 14px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Calming Color Variants */
+.breathing { background: linear-gradient(135deg, #5dade2, #85c1e9); }
+.thought   { background: linear-gradient(135deg, #58d68d, #82e0aa); }
+.memory    { background: linear-gradient(135deg, #f7dc6f, #f9e79f); color:#333; }
+.reaction  { background: linear-gradient(135deg, #ec7063, #f1948a); }
+.focus     { background: linear-gradient(135deg, #af7ac5, #d2b4de); }
+
+/* ================= BACK ================= */
+.back-link {
+    display: inline-block;
+    margin-top: 35px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #0d6efd;
+}
+</style>
+
+<div class="games-wrapper">
+
+    <div class="games-header">
+        <h2>🎮 Mind Games</h2>
+        <p>Select a game to relax your mind and improve focus.</p>
+    </div>
+
+    <div class="games-grid">
+
+        <div class="game-card">
+            <h3>🫁 Breathing Focus</h3>
+            <p>A calming breathing exercise designed to reduce stress and anxiety.</p>
+            <a href="{% url 'breathing_game' %}">
+                <button class="game-btn breathing">Start Game</button>
+            </a>
+        </div>
+
+        <div class="game-card">
+            <h3>🧠 Thought Clearing</h3>
+            <p>Release worries and negative thoughts in a therapeutic way.</p>
+            <a href="{% url 'thought_clear_game' %}">
+                <button class="game-btn thought">Start Game</button>
+            </a>
+        </div>
+
+        <div class="game-card">
+            <h3>🧠 Memory Focus</h3>
+            <p>Train memory and concentration by matching card pairs.</p>
+            <a href="{% url 'memory_game' %}">
+                <button class="game-btn memory">Start Game</button>
+            </a>
+        </div>
+
+        <div class="game-card">
+            <h3>⚡ Reaction Time</h3>
+            <p>Test and improve alertness and reaction speed.</p>
+            <a href="{% url 'reaction_game' %}">
+                <button class="game-btn reaction">Start Game</button>
+            </a>
+        </div>
+
+        <div class="game-card">
+            <h3>👁️ Focus Dot</h3>
+            <p>Strengthen attention and visual focus through a simple task.</p>
+            <a href="{% url 'focus_dot_game' %}">
+                <button class="game-btn focus">Start Game</button>
+            </a>
+        </div>
+
+    </div>
+
+    <a href="{% url 'dashboard' %}" class="back-link">
+        ⬅ Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

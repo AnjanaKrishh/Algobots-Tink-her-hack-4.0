@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>🫁 Breathing Focus Game</h2>
+<p>Inhale → Hold → Exhale → Hold</p>
+
+<!-- Timer selector -->
+<label><strong>Choose duration:</strong></label>
+<select id="duration">
+    <option value="60">1 Minute</option>
+    <option value="180">3 Minutes</option>
+    <option value="300">5 Minutes</option>
+</select>
+
+<!-- Sound toggle -->
+<label style="margin-left:15px;">
+    <input type="checkbox" id="soundToggle"> Calming sound
+</label>
+
+<!-- Breathing circle -->
+<div id="circle">
+    <span id="countdown">0</span>
+</div>
+
+<p id="instruction">Click start to begin</p>
+
+<button onclick="startBreathing()">Start</button>
+<button onclick="stopBreathing()">Stop</button>
+
+<p id="endMessage" style="display:none; font-weight:bold; color:#2c7;">
+    🌿 Well done. Take a moment and notice how you feel.
+</p>
+
+<a href="{% url 'games_home' %}" style="display:block; margin-top:15px;">
+    ⬅ Back to Mind Games
+</a>
+
+<!-- Calming sound -->
+<audio id="calmSound">
+    <source src="https://cdn.pixabay.com/audio/2022/10/26/audio_4f3a6b4b5a.mp3" type="audio/mpeg">
+</audio>
+
+<style>
+#circle {
+    width: 140px;
+    height: 140px;
+    background-color: #6cc4a1;
+    border-radius: 50%;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    transition: transform 4s ease-in-out;
+}
+
+.grow { transform: scale(1.8); }
+.shrink { transform: scale(1); }
+</style>
+
+<script>
+let circle = document.getElementById("circle");
+let instruction = document.getElementById("instruction");
+let endMessage = document.getElementById("endMessage");
+let sound = document.getElementById("calmSound");
+let countdownEl = document.getElementById("countdown");
+
+let timers = [];
+let totalTimer;
+let countdownInterval;
+let remainingSeconds = 0;
+
+function clearAll() {
+    timers.forEach(t => clearTimeout(t));
+    timers = [];
+    clearTimeout(totalTimer);
+    clearInterval(countdownInterval);
+}
+
+function startBreathing() {
+    clearAll();
+    endMessage.style.display = "none";
+
+    remainingSeconds = parseInt(document.getElementById("duration").value);
+    countdownEl.innerText = remainingSeconds;
+
+    // SOUND FIX (important)
+    if (document.getElementById("soundToggle").checked) {
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+    }
+
+    // Countdown timer
+    countdownInterval = setInterval(() => {
+        remainingSeconds--;
+        countdownEl.innerText = remainingSeconds;
+        if (remainingSeconds <= 0) {
+            stopBreathing(true);
+        }
+    }, 1000);
+
+    function cycle() {
+        instruction.innerText = "Inhale…";
+        circle.classList.add("grow");
+        circle.classList.remove("shrink");
+
+        timers.push(setTimeout(() => {
+            instruction.innerText = "Hold…";
+        }, 4000));
+
+        timers.push(setTimeout(() => {
+            instruction.innerText = "Exhale…";
+            circle.classList.remove("grow");
+            circle.classList.add("shrink");
+        }, 8000));
+
+        timers.push(setTimeout(() => {
+            instruction.innerText = "Hold…";
+        }, 12000));
+
+        timers.push(setTimeout(cycle, 16000));
+    }
+
+    cycle();
+}
+
+function stopBreathing(finished=false) {
+    clearAll();
+    sound.pause();
+    circle.classList.remove("grow");
+    circle.classList.add("shrink");
+    instruction.innerText = "Breathing stopped.";
+
+    if (finished) {
+        endMessage.style.display = "block";
+        countdownEl.innerText = "✔";
+    }
+}
+</script>
+{% endblock %}

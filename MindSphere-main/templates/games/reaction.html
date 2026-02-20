@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>⚡ Reaction Time Game</h2>
+<p>
+    Wait until the box turns <strong style="color:green;">GREEN</strong>,  
+    then click as fast as you can.
+</p>
+
+<div id="gameBox" class="box idle" onclick="handleClick()">
+    Click to Start
+</div>
+
+<p id="result"></p>
+<p id="bestScore"></p>
+
+<a href="{% url 'games_home' %}">⬅ Back to Mind Games</a>
+
+<style>
+.box {
+    width: 300px;
+    height: 150px;
+    margin: 40px auto;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+/* States */
+.idle {
+    background: #0d6efd;
+    color: white;
+}
+
+.waiting {
+    background: #ffc107;
+    color: black;
+}
+
+.ready {
+    background: #198754;
+    color: white;
+}
+</style>
+
+<script>
+let startTime = null;
+let timeoutId = null;
+let state = "idle"; // idle | waiting | ready
+
+const box = document.getElementById("gameBox");
+const result = document.getElementById("result");
+const bestScoreEl = document.getElementById("bestScore");
+
+// Load best score
+let bestScore = localStorage.getItem("bestReaction");
+if (bestScore) {
+    bestScoreEl.innerText = `🏆 Best Reaction: ${bestScore} ms`;
+}
+
+function handleClick() {
+
+    if (state === "idle") {
+        result.innerText = "";
+        box.innerText = "Wait for green…";
+        box.className = "box waiting";
+        state = "waiting";
+
+        const delay = Math.random() * 3000 + 2000; // 2–5 seconds
+
+        timeoutId = setTimeout(() => {
+            box.className = "box ready";
+            box.innerText = "CLICK!";
+            startTime = Date.now();
+            state = "ready";
+        }, delay);
+
+    } 
+    else if (state === "waiting") {
+        clearTimeout(timeoutId);
+        box.className = "box idle";
+        box.innerText = "Too early! Try again";
+        state = "idle";
+
+    } 
+    else if (state === "ready") {
+        const reactionTime = Date.now() - startTime;
+
+        box.className = "box idle";
+        box.innerText = "Click to Start Again";
+        state = "idle";
+
+        result.innerText = `⚡ Your reaction time: ${reactionTime} ms`;
+
+        // Save best score
+        if (!bestScore || reactionTime < bestScore) {
+            bestScore = reactionTime;
+            localStorage.setItem("bestReaction", bestScore);
+            bestScoreEl.innerText = `🏆 New Best Reaction: ${bestScore} ms 🔥`;
+        }
+    }
+}
+</script>
+{% endblock %}

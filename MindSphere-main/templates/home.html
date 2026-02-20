@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MindSphere | Mental Wellness Platform</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #e8ecff, #f7f9ff, #eef7f3);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ---------- FLOATING SHAPES ---------- */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.35;
+            animation: float 14s infinite ease-in-out;
+        }
+
+        .shape.one {
+            width: 280px;
+            height: 280px;
+            background: #8aa2ff;
+            top: 10%;
+            left: 10%;
+        }
+
+        .shape.two {
+            width: 320px;
+            height: 320px;
+            background: #9fe3c2;
+            bottom: 15%;
+            right: 12%;
+            animation-delay: 3s;
+        }
+
+        .shape.three {
+            width: 220px;
+            height: 220px;
+            background: #ffd6a5;
+            top: 60%;
+            left: 25%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-40px); }
+        }
+
+        /* ---------- CONTAINER ---------- */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 720px;
+            text-align: center;
+            padding: 70px 30px;
+            animation: fadeUp 1.2s ease;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---------- TITLE FIX ---------- */
+        h1 {
+            font-size: 56px;
+            margin-bottom: 18px;
+            font-weight: 800;
+            letter-spacing: -1.2px;
+        }
+
+        .brand-text {
+            background: linear-gradient(135deg, #1e3a8a, #0d6efd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow:
+                0 4px 12px rgba(13,110,253,0.25),
+                0 0 2px rgba(0,0,0,0.05);
+        }
+
+        .emoji {
+            margin-right: 6px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 45px;
+            line-height: 1.6;
+        }
+
+        /* ---------- BUTTONS ---------- */
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 36px;
+            border-radius: 14px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #0d6efd, #3b82f6);
+            color: white;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #198754, #22c55e);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.18);
+        }
+
+        footer {
+            margin-top: 70px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 42px; }
+            p { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Floating Background Shapes -->
+<div class="shape one"></div>
+<div class="shape two"></div>
+<div class="shape three"></div>
+
+<div class="container">
+
+    <h1>
+        <span class="emoji">🧠</span>
+        <span class="brand-text">MindSphere</span>
+    </h1>
+
+    <p>
+        A complete mental wellness platform to track your mood,
+        reduce stress, improve focus, and build healthy habits
+        with AI guidance and mindful activities.
+    </p>
+
+    <div class="actions">
+        <a href="{% url 'login' %}" class="btn btn-login">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-signup">Create Account</a>
+    </div>
+
+    <footer>
+        © 2026 MindSphere · Mental Wellness Made Simple
+    </footer>
+
+</div>
+
+</body>
+</html>

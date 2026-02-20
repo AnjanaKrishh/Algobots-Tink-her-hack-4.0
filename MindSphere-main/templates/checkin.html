@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+/* ================= PAGE BACKGROUND ================= */
+body {
+    background: linear-gradient(135deg, #edf6ff, #f2fbf7);
+}
+
+/* ================= CENTER WRAPPER ================= */
+.checkin-wrapper {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.7s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= CARD ================= */
+.checkin-card {
+    background: white;
+    width: 100%;
+    max-width: 480px;
+    padding: 42px 38px;
+    border-radius: 18px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.10);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft emoji background */
+.checkin-card::before {
+    content: "🧠 💙 🌿 😊";
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 26px;
+    opacity: 0.15;
+}
+
+/* ================= HEADER ================= */
+.checkin-card h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.checkin-card p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* ================= FORM ================= */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.15);
+}
+
+/* ================= BUTTON ================= */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(135deg, #0d6efd, #3b82f6);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-top: 12px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(13,110,253,0.35);
+}
+
+/* ================= BACK ================= */
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    font-weight: 600;
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+/* ================= ERRORS ================= */
+.errorlist {
+    color: #dc3545;
+    font-size: 13px;
+    list-style: none;
+    padding-left: 0;
+    margin-top: 4px;
+}
+</style>
+
+<div class="checkin-wrapper">
+
+    <div class="checkin-card">
+
+        <h2>🧠 Daily Mental Check-In</h2>
+        <p>Take a moment to reflect on how you’re feeling today</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="submit-btn">
+                Save Today’s Check-In
+            </button>
+        </form>
+
+        <a href="{% url 'dashboard' %}" class="back-link">
+            ⬅ Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

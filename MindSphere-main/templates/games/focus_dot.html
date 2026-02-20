@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>👁️ Focus Dot Game</h2>
+<p>
+    Keep your eyes focused.  
+    Click the dot before it moves.
+</p>
+
+<div id="gameArea">
+    <div id="dot"></div>
+</div>
+
+<p>🎯 Score: <strong id="score">0</strong></p>
+<p id="bestScore"></p>
+<p id="message"></p>
+
+<button onclick="startGame()">Start Game</button>
+
+<a href="{% url 'games_home' %}" style="display:block; margin-top:15px;">
+    ⬅ Back to Mind Games
+</a>
+
+<style>
+#gameArea {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    border: 2px dashed #ccc;
+    margin: 30px auto;
+    position: relative;
+    border-radius: 12px;
+    background: #f8f9fa;
+}
+
+#dot {
+    width: 24px;
+    height: 24px;
+    background: #dc3545;
+    border-radius: 50%;
+    position: absolute;
+    display: none;
+    cursor: pointer;
+}
+</style>
+
+<script>
+let score = 0;
+let bestScore = localStorage.getItem("bestFocusDot") || 0;
+let timeoutId = null;
+let gameActive = false;
+
+const dot = document.getElementById("dot");
+const scoreEl = document.getElementById("score");
+const bestScoreEl = document.getElementById("bestScore");
+const messageEl = document.getElementById("message");
+const area = document.getElementById("gameArea");
+
+bestScoreEl.innerText = `🏆 Best Score: ${bestScore}`;
+
+function randomPosition() {
+    const maxX = area.clientWidth - 30;
+    const maxY = area.clientHeight - 30;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    dot.style.left = `${x}px`;
+    dot.style.top = `${y}px`;
+}
+
+function showDot() {
+    randomPosition();
+    dot.style.display = "block";
+
+    timeoutId = setTimeout(endGame, 1200); // time limit to click
+}
+
+function startGame() {
+    score = 0;
+    scoreEl.innerText = score;
+    messageEl.innerText = "";
+    gameActive = true;
+    dot.style.display = "block";
+    showDot();
+}
+
+dot.onclick = () => {
+    if (!gameActive) return;
+
+    clearTimeout(timeoutId);
+    score++;
+    scoreEl.innerText = score;
+    showDot();
+};
+
+function endGame() {
+    gameActive = false;
+    dot.style.display = "none";
+
+    messageEl.innerText = "⏳ Focus lost. Game over.";
+
+    if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem("bestFocusDot", bestScore);
+        bestScoreEl.innerText = `🏆 New Best Score: ${bestScore} 🔥`;
+    }
+}
+</script>
+{% endblock %}

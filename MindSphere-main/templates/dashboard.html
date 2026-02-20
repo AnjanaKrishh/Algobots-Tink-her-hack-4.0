@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+/* ================== GLOBAL ================== */
+.dashboard-wrapper {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px 40px;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================== HEADER ================== */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.dashboard-header h2 {
+    font-weight: 700;
+    font-size: 26px;
+}
+
+/* ================== LOGOUT ================== */
+.logout-btn {
+    background: linear-gradient(135deg, #dc3545, #ff5a5a);
+    padding: 9px 16px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220,53,69,0.35);
+}
+
+/* ================== GRID ================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-bottom: 45px;
+}
+
+/* ================== CARD ================== */
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 26px 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ================== BUTTONS ================== */
+.btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 11px 18px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #0d6efd, #3b82f6);
+    box-shadow: 0 6px 18px rgba(13,110,253,0.35);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #198754, #22c55e);
+    box-shadow: 0 6px 18px rgba(25,135,84,0.35);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f39c12, #facc15);
+    box-shadow: 0 6px 18px rgba(243,156,18,0.35);
+}
+
+.btn-dark {
+    background: linear-gradient(135deg, #343a40, #4b5563);
+    box-shadow: 0 6px 18px rgba(52,58,64,0.35);
+}
+
+.btn-outline {
+    background: transparent;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    padding: 10px 16px;
+}
+
+/* ================== STATUS ================== */
+.status-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.status-box {
+    background: linear-gradient(135deg, #eef5ff, #f9fbff);
+    padding: 26px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.status-box ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.status-box li {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+</style>
+
+<div class="dashboard-wrapper">
+
+    <!-- HEADER -->
+    <div class="dashboard-header">
+        <h2>👋 Welcome, {{ user.username }}</h2>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <!-- FEATURE CARDS -->
+    <div class="dashboard-grid">
+
+        <div class="card">
+            <h3>🧠 Mental Check-In</h3>
+            <p>Log your daily mood, stress, energy, and sleep to build awareness.</p>
+            <a href="{% url 'checkin' %}" class="btn btn-primary">
+                Start Check-In
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>📊 Mental Health History</h3>
+            <p>Track trends, insights, and past mental wellness data.</p>
+            <a href="{% url 'history' %}" class="btn btn-success">
+                View History
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>🎮 Mind Games</h3>
+            <p>Boost focus, memory, calmness, and reaction through games.</p>
+            <a href="{% url 'games_home' %}" class="btn btn-warning">
+                Open Games
+            </a>
+        </div>
+
+        <div class="card">
+            <h3>🤖 MindMate Chatbot</h3>
+            <p>Your personal AI assistant for stress relief and reflection.</p>
+            <a href="{% url 'chatbot' %}" class="btn btn-dark">
+                Chat Now
+            </a>
+        </div>
+
+    </div>
+
+    <!-- STATUS -->
+    <div class="status-title">🗓 Today’s Mental Status</div>
+
+    <div class="status-box">
+        {% if today_status %}
+            <ul>
+                <li><strong>Mood:</strong> {{ today_status.get_mood_display }}</li>
+                <li><strong>Stress:</strong> {{ today_status.stress_level }}/5</li>
+                <li><strong>Energy:</strong> {{ today_status.get_energy_level_display }}</li>
+                <li><strong>Sleep:</strong> {{ today_status.get_sleep_quality_display }}</li>
+            </ul>
+
+            <a href="{% url 'history' %}" class="btn btn-outline">
+                📈 View Full History
+            </a>
+        {% else %}
+            <p><em>You haven’t checked in today.</em></p>
+            <a href="{% url 'checkin' %}" class="btn btn-primary">
+                ➕ Add Today’s Check-In
+            </a>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
