@@ -106,7 +106,7 @@ List the key features of your project:
 
 **Application Workflow:**
 
-![Workflow](docs/workflow![WhatsApp Image 2026-02-21 at 6 19 30 AM](https://github.com/user-attachments/assets/c6b636e1-ef7a-45fe-ba5e-a57ff3709c12)
+![Workflow]([WhatsApp Image 2026-02-21 at 6 19 30 AM](https://github.com/user-attachments/assets/c6b636e1-ef7a-45fe-ba5e-a57ff3709c12)
 .png)
 *The Feelix platform collects daily emotional and behavioral data from users through mood check-ins, activity tracking, and journaling. This data is analyzed by AI to identify mood patterns, generate insights, and provide personalized recommendations such as relaxation activities or chatbot support. The system then monitors user progress over time and continuously adapts its suggestions to improve mental wellness.*
 
