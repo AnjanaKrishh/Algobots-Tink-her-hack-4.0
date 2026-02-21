@@ -90,7 +90,8 @@ List the key features of your project:
 ](User dashboard)
 *User Dashboard with Check-in,history,games,chatbot*
 
-![< <img width="1267" height="596" alt="Screenshot 2026-02-21 071853" src="https://github.com/user-attachments/assets/03afc506-7bd5-4bc4-9978-4f712a7aa3a0" />
+![<img width="1267" height="596" alt="Screenshot 2026-02-21 071853" src="https://github.com/user-attachments/assets/91a35bb0-d27e-4f01-88da-711b504c60d1" />
+ />
 />
 ](Backend)
 *Screenshot from VS code*
@@ -99,7 +100,8 @@ List the key features of your project:
 
 **System Architecture:**
 
-![Architecture Diagram](docs/architecture.png)
+![Architecture Diagram](do![WhatsApp Image 2026-02-21 at 6 19 30 AM (1)](https://github.com/user-attachments/assets/733e49a1-a094-4d72-b40b-296c3cdd2d8f)
+cs/architecture.png)
 *Explain your system architecture - components, data flow, tech stack interaction*
 
 **Application Workflow:**
