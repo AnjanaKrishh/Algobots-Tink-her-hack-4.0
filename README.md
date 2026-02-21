@@ -90,9 +90,10 @@ List the key features of your project:
 ](User dashboard)
 *User Dashboard with Check-in,history,games,chatbot*
 
-![<img width="1111" height="660" alt="Screenshot 2026-02-21 070543" src="https://github.com/user-attachments/assets/5cfb273b-0c34-4758-bdc5-908138b41b97" />
-](Games)
-*Breath focus,Thought clearing,memory focus,Reaction Time*
+![< <img width="1267" height="596" alt="Screenshot 2026-02-21 071853" src="https://github.com/user-attachments/assets/03afc506-7bd5-4bc4-9978-4f712a7aa3a0" />
+/>
+](Backend)
+*Screenshot from VS code*
 
 #### Diagrams
 
