@@ -1,0 +1,23 @@
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A sample project demonstrating TypeScript with Express.",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4",
+    "ts-node": "^10.4.0",
+    "eslint": "^7.32.0",
+    "prettier": "^2.5.1"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
