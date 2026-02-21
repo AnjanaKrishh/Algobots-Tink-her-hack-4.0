@@ -16,7 +16,7 @@
 [mention your project hosted link here]
 
 ### Project Description
-[Feelix,full stack web application that provides daily mental health check-ins and also foccuses on mental awarness and stress reduction]
+[Feelix,full stack web application that provides daily mental health check-ins and also foccuses on mental awarness and stress reduction.Feelix is an AI-powered mental wellness platform designed to support individuals in monitoring, understanding, and improving their emotional well-being through intelligent digital assistance. The system enables users to record daily mood data, behavioral patterns, and personal reflections, which are analyzed using artificial intelligence to identify emotional trends and stress indicators. Based on these insights, the platform delivers personalized recommendations such as relaxation activities, guided coping strategies, and interactive chatbot support to help users manage stress and maintain mental balance. Built using a full-stack architecture, Feelix ensures secure data handling, real-time analysis, and adaptive feedback through continuous learning from user interactions. By integrating data tracking, predictive insights, and personalized intervention within a single platform, Feelix aims to promote proactive mental wellness management and provide accessible emotional support in a structured, user-friendly digital environment.]
 
 ### The Problem statement
 [Many people experience stress ,anxiety and mental fatigue.The existing solutions are either costly or needs the peple intervention.There is no easy accesible platforms for mental illness.No integrated systems having including of games,tracking and ai-support]
