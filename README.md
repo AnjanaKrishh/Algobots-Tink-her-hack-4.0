@@ -100,14 +100,15 @@ List the key features of your project:
 
 **System Architecture:**
 
-![Architecture Diagram](do![WhatsApp Image 2026-02-21 at 6 19 30 AM (1)](https://github.com/user-attachments/assets/733e49a1-a094-4d72-b40b-296c3cdd2d8f)
-cs/architecture.png)
-*Explain your system architecture - components, data flow, tech stack interaction*
+![Architecture Diagram]([WhatsApp Image 2026-02-21 at 6 19 30 AM (1)](https://github.com/user-attachments/assets/733e49a1-a094-4d72-b40b-296c3cdd2d8f)
+)
+*The Feelix AI Mental Wellness Platform follows a layered architecture where users interact through the web or mobile interface, which sends data to the backend application for processing and service management. The AI analysis engine then interprets user inputs using emotion detection, mood analysis, and behavioral pattern recognition to generate personalized insights and recommendations. All processed data is securely stored in the database and can integrate with external APIs for health tracking, ensuring continuous monitoring and adaptive mental wellness support.*
 
 **Application Workflow:**
 
-![Workflow](docs/workflow.png)
-*Add caption explaining your workflow*
+![Workflow](docs/workflow![WhatsApp Image 2026-02-21 at 6 19 30 AM](https://github.com/user-attachments/assets/c6b636e1-ef7a-45fe-ba5e-a57ff3709c12)
+.png)
+*The Feelix platform collects daily emotional and behavioral data from users through mood check-ins, activity tracking, and journaling. This data is analyzed by AI to identify mood patterns, generate insights, and provide personalized recommendations such as relaxation activities or chatbot support. The system then monitors user progress over time and continuously adapts its suggestions to improve mental wellness.*
 
 ---
 
