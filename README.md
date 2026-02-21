@@ -22,7 +22,7 @@
 [Many people experience stress ,anxiety and mental fatigue.The existing solutions are either costly or needs the peple intervention.There is no easy accesible platforms for mental illness.No integrated systems having including of games,tracking and ai-support]
 
 ### The Solution
-[How are you solving it?]
+[Feelix provides a comprehensive digital platform to help users monitor, manage, and improve their mental well-being. It allows users to create secure, personalized accounts where they can log their daily moods, record reflections in a private diary, and track emotional trends over time. Through visual charts and analytics, Feelix helps users identify patterns in their emotions and understand potential triggers for stress or anxiety. The platform also offers guidance and self-care recommendations, encouraging proactive mental health management. Built with a React frontend and a Django backend, Feelix ensures a user-friendly, responsive, and secure experience, making mental health tracking accessible, consistent, and actionable for all users.]
 
 ---
 
