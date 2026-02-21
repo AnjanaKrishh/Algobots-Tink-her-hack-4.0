@@ -83,14 +83,16 @@ List the key features of your project:
 #### Screenshots (Add at least 3)
 
 ![<img width="1227" height="588" alt="Screenshot 2026-02-21 052935" src="https://github.com/user-attachments/assets/eb434536-1bb9-4e9b-9a8a-a486f9f29066" />
-](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+](Home page)
+*Basic Home page with user login and creation*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1038" height="664" alt="Screenshot 2026-02-21 070523" src="https://github.com/user-attachments/assets/e89936ea-f4cc-4598-a3ae-f98c2b9eed8b" />
+](User dashboard)
+*User Dashboard with Check-in,history,games,chatbot*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1111" height="660" alt="Screenshot 2026-02-21 070543" src="https://github.com/user-attachments/assets/5cfb273b-0c34-4758-bdc5-908138b41b97" />
+](Games)
+*Breath focus,Thought clearing,memory focus,Reaction Time*
 
 #### Diagrams
 
